@@ -5,7 +5,7 @@
 <!-- Meta tags for search engines to crawl -->
 <meta name="robots" content="index,follow">
 <meta name="description" content="Real-scanned point clouds are often incomplete due to viewpoint, occlusion, and noise.  Existing point cloud completion methods tend to generate global shape skeletons and hence lack fine local details.  Furthermore, they mostly learn a deterministic partial-to-complete mapping, but overlook structural relations in man-made objects.  To tackle these challenges, this paper proposes a variational framework, Variational Relational point Completion network (VRCNet) with two appealing properties: 1) Probabilistic Modeling. In particular, we propose a dual-path architecture to enable principled probabilistic modeling across partial and complete clouds.  One path consumes complete point clouds for reconstruction by learning a point VAE.  The other path generates complete shapes for partial point clouds, whose embedded distribution is guided by distribution obtained from the reconstruction path during training.  2) Relational Enhancement.  Specifically, we carefully design point self-attention kernel and point selective kernel module to exploit relational point features, which refines local shape details conditioned on the coarse completion.  In addition, we contribute a multi-view partial point cloud dataset (MVP dataset) containing over 100,000 high-quality scans, which renders partial 3D shapes from 26 uniformly distributed camera poses for each 3D CAD model.  Extensive experiments demonstrate that VRCNet outperforms state-of-the-art methods on all standard point cloud completion benchmarks.  Notably, VRCNet shows great generalizability and robustness on real-world point cloud scans.">
-<meta name="keywords" content="point cloud; graph CNN; 3D vision; deep learning;">
+<meta name="keywords" content="point cloud completion; VAE; Self-Attention; MVP Dataset;">
 <!-- <link rel="author" href="https://liuziwei7.github.io/"> -->
 
 <!-- Fonts and stuff -->
@@ -25,21 +25,21 @@
 	<h1>Variational Relational Point Completion Network</h1>
 
 	<div class="authors">
-	  <a href="https://people.csail.mit.edu/yuewang/">Yue Wang</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  <a href="https://scholar.google.com/citations?user=pE_8JZ0AAAAJ">Yongbin Sun</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  <a href="https://liuziwei7.github.io/">Ziwei Liu</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  <a href="http://meche.mit.edu/people/faculty/sesarma%40mit.edu">Sanjay E. Sarma</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  <a href="http://www.cs.technion.ac.il/~mbron/">Michael M. Bronstein</a><sup>3</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  <a href="http://people.csail.mit.edu/jsolomon/">Justin M. Solomon</a><sup>1</sup>
+	  <a href="https://github.com/paul007pl/">Liang Pan</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  Xinyi Chen<sup>1 2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <a href="https://scholar.google.com/citations?hl=en&user=WrDKqIAAAAAJ&view_op=list_works&sortby=pubdate">Zhongang Cai</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  Junzhe Zhang<sup>1 2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  Haiyu Zhao<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Shuai Yi<sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  <a href="https://liuziwei7.github.io/">Ziwei Liu</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 
 	<div class="affiliations">
-	  1. <a href="http://web.mit.edu/">Massachusetts Institute of Technology</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  2. <a href="https://www.berkeley.edu/">UC Berkeley</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	  3. <a href="https://www.usi.ch/">USI / TAU / Intel</a>
+	  1. <a href="https://www.ntu.edu.sg/Pages/home.aspx/">S-Lab, Nanyang Technological University</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	  2. <a href="https://www.sensetime.com/">SenseTime Research</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	</div>
 
-	<div class="venue">ACM Transactions on Graphics (<a href="https://tog.acm.org/" target="_blank">TOG</a>) 2019</div>
+	<div class="venue">Computer Vision and Pattern Recognition (<a href="https://tog.acm.org/" target="_blank"> CVPR </a>) 2021 (oral))</div>
       </div>
 
       
@@ -49,11 +49,11 @@
 	<h2>Abstract</h2>
 	<br>
 	<p>
-Point clouds provide a flexible and scalable geometric representation suitable for countless applications in computer graphics; they also comprise the raw output of most 3D data acquisition devices. Hence, the design of intelligent computational models that act directly on point clouds is critical, especially when efficiency considerations or noise preclude the possibility of expensive denoising and meshing procedures. While hand-designed features on point clouds have long been proposed in graphics and vision, however, the recent overwhelming success of convolutional neural networks (CNNs) for image analysis suggests the value of adapting insight from CNN to the point cloud world. To this end, we propose a new neural network module dubbed EdgeConv suitable for CNN-based high-level tasks on point clouds including classification and segmentation. EdgeConv is differentiable and can be plugged into existing architectures. Compared to existing modules operating largely in extrinsic space or treating each point independently, EdgeConv has several appealing properties: It incorporates local neighborhood information; it can be stacked or recurrently applied to learn global shape properties; and in multi-layer systems affinity in feature space captures semantic characteristics over potentially long distances in the original embedding. Beyond proposing this module, we provide extensive evaluation and analysis revealing that EdgeConv captures and exploits fine-grained geometric properties of point clouds. The proposed approach achieves state-of-the-art performance on standard benchmarks including ModelNet40 and S3DIS.
+Real-scanned point clouds are often incomplete due to viewpoint, occlusion, and noise.  Existing point cloud completion methods tend to generate global shape skeletons and hence lack fine local details.  Furthermore, they mostly learn a deterministic partial-to-complete mapping, but overlook structural relations in man-made objects.  To tackle these challenges, this paper proposes a variational framework, Variational Relational point Completion network (VRCNet) with two appealing properties: 1) Probabilistic Modeling. In particular, we propose a dual-path architecture to enable principled probabilistic modeling across partial and complete clouds.  One path consumes complete point clouds for reconstruction by learning a point VAE.  The other path generates complete shapes for partial point clouds, whose embedded distribution is guided by distribution obtained from the reconstruction path during training.  2) Relational Enhancement.  Specifically, we carefully design point self-attention kernel and point selective kernel module to exploit relational point features, which refines local shape details conditioned on the coarse completion.  In addition, we contribute a multi-view partial point cloud dataset (MVP dataset) containing over 100,000 high-quality scans, which renders partial 3D shapes from 26 uniformly distributed camera poses for each 3D CAD model.  Extensive experiments demonstrate that VRCNet outperforms state-of-the-art methods on all standard point cloud completion benchmarks.  Notably, VRCNet shows great generalizability and robustness on real-world point cloud scans.
 	</p>
-      </div>
+</div>
       
-<div class="section materials">
+<!-- <div class="section materials">
 	<h2>Materials</h2>
 	<center>
 	  <ul>
@@ -69,9 +69,9 @@ Point clouds provide a flexible and scalable geometric representation suitable f
 	    </center>
 	    </div>
 	    
-<br>
+<br> -->
 
-<div class="section code">
+<!-- <div class="section code">
 	<h2>Code and Models</h2>
 	<center>
 	  <ul>
@@ -79,7 +79,7 @@ Point clouds provide a flexible and scalable geometric representation suitable f
           <li class="grid">
 	      <div class="griditem">
 		<a href="https://github.com/paul007pl/VRCNet" target="_blank" class="imageLink"><img src="./VRCNet/code.png"></a><br>
-		  <a href="https://github.com/WangYueFt/VRCNet" target="_blank">Code and Models</a>
+		  <a href="https://github.com/paul007pl/VRCNet" target="_blank">Code and Models</a>
 		</div>
 	      </li>
 
@@ -113,7 +113,7 @@ Point clouds provide a flexible and scalable geometric representation suitable f
 	    </center>
 	    </div>
 	    
-<br>
+<br> -->
 
 <!-- <div class="section citation">
 	<h2>Citation</h2>
