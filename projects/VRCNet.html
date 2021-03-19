@@ -6,7 +6,7 @@
 <meta name="robots" content="index,follow">
 <meta name="description" content="Real-scanned point clouds are often incomplete due to viewpoint, occlusion, and noise.  Existing point cloud completion methods tend to generate global shape skeletons and hence lack fine local details.  Furthermore, they mostly learn a deterministic partial-to-complete mapping, but overlook structural relations in man-made objects.  To tackle these challenges, this paper proposes a variational framework, Variational Relational point Completion network (VRCNet) with two appealing properties: 1) Probabilistic Modeling. In particular, we propose a dual-path architecture to enable principled probabilistic modeling across partial and complete clouds.  One path consumes complete point clouds for reconstruction by learning a point VAE.  The other path generates complete shapes for partial point clouds, whose embedded distribution is guided by distribution obtained from the reconstruction path during training.  2) Relational Enhancement.  Specifically, we carefully design point self-attention kernel and point selective kernel module to exploit relational point features, which refines local shape details conditioned on the coarse completion.  In addition, we contribute a multi-view partial point cloud dataset (MVP dataset) containing over 100,000 high-quality scans, which renders partial 3D shapes from 26 uniformly distributed camera poses for each 3D CAD model.  Extensive experiments demonstrate that VRCNet outperforms state-of-the-art methods on all standard point cloud completion benchmarks.  Notably, VRCNet shows great generalizability and robustness on real-world point cloud scans.">
 <meta name="keywords" content="point cloud; graph CNN; 3D vision; deep learning;">
-<link rel="author" href="https://liuziwei7.github.io/">
+<!-- <link rel="author" href="https://liuziwei7.github.io/"> -->
 
 <!-- Fonts and stuff -->
 <link href="./VRCNet/css" rel="stylesheet" type="text/css">
@@ -22,7 +22,7 @@
     <div id="content-inner">
       
       <div class="section head">
-	<h1>Dynamic Graph CNN for Learning on Point Clouds</h1>
+	<h1>Variational Relational Point Completion Network</h1>
 
 	<div class="authors">
 	  <a href="https://people.csail.mit.edu/yuewang/">Yue Wang</a><sup>1</sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
